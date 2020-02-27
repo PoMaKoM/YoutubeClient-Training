@@ -7,10 +7,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { CardComponent } from './components/search-results/card/card.component';
 import { SearchComponent } from './components/header/search/search.component';
-import { SettingsComponent } from './components/header/search/settings/settings.component';
-import { VideoInfoComponent } from './components/video-info/video-info.component';
 import { AuthInfoComponent } from './components/header/auth-info/auth-info.component';
-import { AuthComponent } from './components/auth/auth.component';
+import { SearchSettingsComponent } from './components/header/search-settings/search-settings.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +17,8 @@ import { AuthComponent } from './components/auth/auth.component';
     SearchResultsComponent,
     CardComponent,
     SearchComponent,
-    SettingsComponent,
-    VideoInfoComponent,
     AuthInfoComponent,
-    AuthComponent
+    SearchSettingsComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
