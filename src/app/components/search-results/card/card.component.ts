@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { SearchItem } from 'src/app/models/search-item.model';
 
 @Component({
   selector: 'app-card',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
+  @Input() protected post: SearchItem;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
+  public ngOnInit(): void {
+    console.log(typeof this.post.statistics.likeCount);
   }
-
 }

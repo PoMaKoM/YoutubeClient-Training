@@ -9,7 +9,7 @@ export class AuthInfoComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
   }
 
 }
