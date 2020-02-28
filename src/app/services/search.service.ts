@@ -4,8 +4,16 @@ import { SearchResponse } from '../models/search-response.model';
 @Injectable({
   providedIn: 'root'
 })
-
 export class SearchService {
+  private _filter: string = '';
+
+  get filter(): string {
+    return this._filter;
+  }
+  set filter(value: string) {
+    this._filter = value;
+  }
+
   public searchPosts(): SearchResponse {
     return this.answer;
   }

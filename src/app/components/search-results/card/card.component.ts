@@ -7,10 +7,8 @@ import { SearchItem } from 'src/app/models/search-item.model';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() protected post: SearchItem;
+  @Input() public post: SearchItem;
   constructor() {}
 
-  public ngOnInit(): void {
-    console.log(typeof this.post.statistics.likeCount);
-  }
+  public ngOnInit(): void {}
 }

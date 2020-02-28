@@ -5,6 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TitleShortPipe implements PipeTransform {
   public transform(value: string): string {
-    return value.slice(0, 32) + '...';
+    const shortVal: string = value.slice(0, 32);
+    if (value === shortVal) {
+      return value;
+    } else {
+      return shortVal + '...';
+    }
   }
 }

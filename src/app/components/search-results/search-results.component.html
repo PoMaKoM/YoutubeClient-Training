@@ -1,5 +1,8 @@
-<div class="card-list">
-  <app-card [post]="post" *ngFor="let post of posts.items | searchFilter">
+<div class="card-list" *ngIf="posts; else wait">
+  <app-card
+    [post]="post"
+    *ngFor="let post of posts.items | searchFilter: searchService.filter"
+  >
   </app-card>
 </div>
 

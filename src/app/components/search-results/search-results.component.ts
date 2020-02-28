@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { SearchResponse } from 'src/app/models/search-response.model';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-results',
@@ -8,11 +10,23 @@ import { SearchResponse } from 'src/app/models/search-response.model';
   styleUrls: ['./search-results.component.scss']
 })
 export class SearchResultsComponent implements OnInit {
-  @Input() public posts: SearchResponse;
+  public posts: SearchResponse;
+  public querySubscription: Subscription;
 
-  constructor(private searchService: SearchService) {}
+  constructor(
+    public searchService: SearchService,
+    private route: ActivatedRoute
+  ) {}
 
   public ngOnInit(): void {
-    this.posts = this.searchService.searchPosts();
+    this.querySubscription = this.route.queryParams.subscribe(
+      (queryParams: Params) => {
+        if (queryParams.search) {
+          this.posts = this.searchService.searchPosts();
+        } else {
+          this.posts = null;
+        }
+      }
+    );
   }
 }

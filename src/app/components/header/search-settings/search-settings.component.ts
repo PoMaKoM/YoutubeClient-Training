@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SearchService } from '../../../services/search.service';
 
 @Component({
   selector: 'app-search-settings',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-settings.component.scss']
 })
 export class SearchSettingsComponent implements OnInit {
-  constructor() {}
+  constructor(public service: SearchService) {}
 
   public ngOnInit(): void {}
 }
