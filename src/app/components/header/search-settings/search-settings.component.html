@@ -2,10 +2,10 @@
   <span>
     Sorting by:
   </span>
-  <a>Date</a>
-  <a>Count of vives</a>
+  <a (click)="searchService.sorting = 'date'">Date</a>
+  <a (click)="searchService.sorting = 'views'">Count of views</a>
   <span>
     by word or sentance
   </span>
-  <input type="text" id="filter" [(ngModel)]="service.filter" />
+  <input type="text" id="filter" [(ngModel)]="searchService.filter" />
 </div>

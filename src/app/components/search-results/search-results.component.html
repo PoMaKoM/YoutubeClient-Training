@@ -1,7 +1,11 @@
 <div class="card-list" *ngIf="posts; else wait">
   <app-card
     [post]="post"
-    *ngFor="let post of posts.items | searchFilter: searchService.filter"
+    *ngFor="
+      let post of posts.items
+        | searchFilter: searchService.filter
+        | searchSort: searchService.sorting
+    "
   >
   </app-card>
 </div>

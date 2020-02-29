@@ -2,6 +2,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
+$main: #2f80ed;
+$white: #fff;
+$gray: #e5e5e5;
+$light-gray: #efefef;
+$darken-gray: #828282;
+$darken-white: #f2f2f2;
+$shadow: #00000075;
+$dark: #4f4f4f;
+$red: #eb5757;
+$orange: #f2c94c;
+$green: #27ae60;
+
 body {
   margin: 0;
   padding: 0;
@@ -18,14 +30,14 @@ body {
 .btn {
   padding: 5px 20px;
   line-height: 14px;
-  color: #fff;
+  color: $white;
   border: 0;
   border-radius: 5px;
-  background-color: #2f80ed;
+  background-color: $main;
   cursor: pointer;
   transition: 0.2s;
   &:hover {
-    box-shadow: 2px 2px 3px 0px #2f80ed;
+    box-shadow: 2px 2px 3px 0px $main;
   }
 }
 
@@ -53,7 +65,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: #e5e5e5;
+  background-color: $gray;
 
   .spacing,
   .search,
@@ -75,8 +87,9 @@ header {
     padding: 10px;
 
     a {
-      color: #2f80ed;
+      color: $main;
       margin-right: 20px;
+      cursor: pointer;
     }
 
     input {
@@ -90,7 +103,7 @@ header {
 
   .search {
     input {
-      background: #efefef;
+      background: $light-gray;
       line-height: 14px;
       padding: 5px;
       width: 400px;
@@ -125,7 +138,7 @@ header {
 .auth {
   max-width: 350px;
   margin: 45px auto;
-  background-color: #f2f2f2;
+  background-color: $darken-white;
   padding: 25px;
   border-radius: 5px;
   form {
@@ -134,18 +147,18 @@ header {
 
     label {
       line-height: 12px;
-      color: #828282;
+      color: $darken-gray;
       margin: 5px;
     }
 
     input {
-      background-color: #e0e0e0;
+      background-color: $gray;
       min-width: 300px;
       height: 35px;
       font-size: 15px;
       padding: 0 10px;
       &.ng-touched.ng-invalid {
-        border-bottom: 5px solid #eb5757;
+        border-bottom: 5px solid $red;
         border-radius: 0 0 5px 5px;
       }
     }
@@ -178,8 +191,21 @@ header {
     padding: 20px;
     box-sizing: border-box;
     border-radius: 5px;
-    background-color: #e5e5e5;
-    box-shadow: 2px 2px 5px #00000075;
+    background-color: $gray;
+    box-shadow: 2px 2px 5px $shadow;
+    border-bottom: 5px solid $orange;
+
+    &.old {
+      border-color: $red;
+    }
+
+    &.new {
+      border-color: $green;
+    }
+
+    &.hot {
+      border-color: $main;
+    }
 
     .thumbnail > img {
       width: 100%;
@@ -200,7 +226,7 @@ header {
       font-weight: bold;
       font-size: 20px;
       line-height: 23px;
-      color: #4f4f4f;
+      color: $dark;
     }
   }
 }

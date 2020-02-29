@@ -14,6 +14,8 @@ import { SearchService } from './services/search.service';
 import { NumberShortPipe } from './pipes/number-short.pipe';
 import { TitleShortPipe } from './pipes/title-short.pipe';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { SearchSortPipe } from './pipes/search-sort.pipe';
+import { CardColorsDirective } from './directives/card-colors.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { SearchFilterPipe } from './pipes/search-filter.pipe';
     SearchSettingsComponent,
     NumberShortPipe,
     TitleShortPipe,
-    SearchFilterPipe
+    SearchFilterPipe,
+    SearchSortPipe,
+    CardColorsDirective
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [SearchService],
