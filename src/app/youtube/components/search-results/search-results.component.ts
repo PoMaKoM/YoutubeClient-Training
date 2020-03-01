@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
-import { SearchResponse } from 'src/app/models/search-response.model';
+import { SearchResponse } from 'src/app/youtube/models/search-response.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 

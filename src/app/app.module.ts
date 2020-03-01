@@ -15,7 +15,7 @@ import { NumberShortPipe } from './pipes/number-short.pipe';
 import { TitleShortPipe } from './pipes/title-short.pipe';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { SearchSortPipe } from './pipes/search-sort.pipe';
-import { CardColorsDirective } from './directives/card-colors.directive';
+import { CardColorsDirective } from './youtube/directives/card-colors.directive';
 
 @NgModule({
   declarations: [
