@@ -1,0 +1,17 @@
+<div class="card-list" *ngIf="posts; else wait">
+  <app-card
+    [post]="post"
+    *ngFor="
+      let post of posts.items
+        | searchFilter: searchService.filter
+        | searchSort: searchService.sorting
+    "
+  >
+  </app-card>
+</div>
+
+<ng-template #wait>
+  <div class="error-center">
+    <span>Please enter your search query</span>
+  </div>
+</ng-template>
