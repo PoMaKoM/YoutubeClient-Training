@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -11,23 +11,25 @@ export class SearchComponent {
   public settings: boolean = false;
   public searchForm: FormGroup;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private activetedRoute: ActivatedRoute) {}
 
   public ngOnInit(): void {
+    const qery: string | null =
+      this.activetedRoute.snapshot.queryParams.search || null;
     this.searchForm = new FormGroup({
-      request: new FormControl(null, Validators.required)
+      request: new FormControl(qery, Validators.required)
     });
   }
 
   public search(): void {
     if (this.searchForm.invalid) {
-      this.router.navigate(['/'], {
+      this.router.navigate(['/client'], {
         queryParams: {}
       });
       return;
     }
 
-    this.router.navigate(['/'], {
+    this.router.navigate(['/client'], {
       queryParams: { search: this.searchForm.value.request }
     });
   }

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SearchItem } from 'src/app/youtube/models/search-item.model';
-import { CardColorsDirective } from '../../../youtube/directives/card-colors.directive';
+import { SearchItem } from 'src/app/shared/models/search-item.model';
 
 @Component({
   selector: 'app-card',

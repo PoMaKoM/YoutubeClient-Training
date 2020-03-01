@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from 'src/app/services/search.service';
-import { SearchResponse } from 'src/app/youtube/models/search-response.model';
+import { SearchService } from 'src/app/core/services/search.service';
+import { SearchResponse } from 'src/app/shared/models/search-response.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss']
 })
+
 export class SearchResultsComponent implements OnInit {
   public posts: SearchResponse;
   public querySubscription: Subscription;

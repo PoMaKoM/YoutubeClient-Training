@@ -1,32 +1,3 @@
 <div class="auth">
-  <form
-    class="login"
-    *ngIf="ligining; else reg"
-    [formGroup]="loginForm"
-    (ngSubmit)="login()"
-  >
-    <h2>Login</h2>
-    <label for="email">Email</label>
-    <input formControlName="email" id="email " type="email" />
-    <label for="password">Password</label>
-    <input formControlName="password" id="password" type="password" />
-    <div class="buttons text-right">
-      <a (click)="ligining = false">Registration</a>
-      <button class="btn" type="submit">Login</button>
-    </div>
-  </form>
-
-  <ng-template #reg>
-    <form class="reg" [formGroup]="regForm" (ngSubmit)="register()">
-      <h2>Registration</h2>
-      <label for="email">Email</label>
-      <input formControlName="email" id="email" type="email" />
-      <label for="password">Password</label>
-      <input formControlName="password" id="password" type="password" />
-      <div class="buttons text-right">
-        <a (click)="ligining = true">Login</a>
-        <button class="btn" type="submit">Register</button>
-      </div>
-    </form>
-  </ng-template>
+  <router-outlet></router-outlet>
 </div>

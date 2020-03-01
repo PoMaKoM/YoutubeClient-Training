@@ -1,5 +1,8 @@
 import { Directive, ElementRef, Renderer2, Input, OnInit } from '@angular/core';
-import { MILISEC_IN_DAY, MONTS_DAYS } from '../constants/time.constans.js';
+import {
+  MILISEC_IN_DAY,
+  MONTS_DAYS
+} from '../../shared/constants/time.constans.js';
 
 @Directive({
   selector: '[appCardColors]'

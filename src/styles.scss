@@ -4,6 +4,7 @@
 
 $main: #2f80ed;
 $white: #fff;
+$black: #000;
 $gray: #e5e5e5;
 $light-gray: #efefef;
 $darken-gray: #828282;
@@ -167,11 +168,13 @@ header {
     margin-top: 10px;
     a {
       margin-right: 10px;
+      text-decoration: none;
+      color: $black;
       cursor: pointer;
     }
     button {
-      cursor: pointer;
       padding: 5px 30px;
+      cursor: pointer;
     }
   }
 }

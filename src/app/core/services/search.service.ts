@@ -1,5 +1,5 @@
-import { Injectable, Output } from '@angular/core';
-import { SearchResponse } from '../models/search-response.model';
+import { Injectable } from '@angular/core';
+import { SearchResponse } from '../../shared/models/search-response.model';
 
 @Injectable({
   providedIn: 'root'
