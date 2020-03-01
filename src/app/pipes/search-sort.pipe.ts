@@ -11,9 +11,15 @@ export class SearchSortPipe implements PipeTransform {
   ): SearchItem[] {
     switch (sortBy) {
       case 'date':
-        return posts.reverse();
+        return posts.sort(function(a: SearchItem, b: SearchItem): number {
+          return (
+            +new Date(b.snippet.publishedAt) - +new Date(a.snippet.publishedAt)
+          );
+        });
       case 'views':
-        return posts;
+        return posts.sort(function(a: SearchItem, b: SearchItem): number {
+          return +b.statistics.viewCount - +a.statistics.viewCount;
+        });
       default:
         return posts;
     }
