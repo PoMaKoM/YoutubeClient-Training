@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/core/services/auth.service';
+import { User } from 'src/app/shared/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './login.component.html',
@@ -10,6 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
+  public submitted: boolean = false;
 
   constructor(public auth: AuthService, private router: Router) {}
 
@@ -24,7 +26,26 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    console.log('login');
-    this.router.navigate(['/client']);
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.submitted = true;
+
+    const user: User = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+      returnSecureToken: true
+    };
+
+    this.auth.login(user).subscribe(
+      () => {
+        this.router.navigate(['/client']);
+        this.submitted = false;
+      },
+      () => {
+        this.submitted = false;
+      }
+    );
   }
 }
