@@ -4,7 +4,8 @@
 
 // tslint:disable-next-line: typedef
 export const environment = {
-  production: false
+  production: false,
+  apiKey: 'AIzaSyD6KbKkaLkOmyAIC7EorHmMqUtPR8I-_uU'
 };
 
 /*

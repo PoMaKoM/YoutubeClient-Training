@@ -6,6 +6,12 @@
   <input formControlName="password" id="password" type="password" />
   <div class="buttons text-right">
     <a [routerLink]="['/auth', 'register']">Registration</a>
-    <button class="btn" type="submit">Login</button>
+    <button
+      class="btn"
+      type="submit"
+      [disabled]="loginForm.invalid || submitted"
+    >
+      Login
+    </button>
   </div>
 </form>

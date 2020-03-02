@@ -40,6 +40,13 @@ body {
   &:hover {
     box-shadow: 2px 2px 3px 0px $main;
   }
+
+  &:disabled {
+    background-color: $dark;
+    &:hover {
+      box-shadow: 2px 2px 3px 0px $dark;
+    }
+  }
 }
 
 .text-left {
@@ -142,6 +149,17 @@ header {
   background-color: $darken-white;
   padding: 25px;
   border-radius: 5px;
+
+  .alert {
+    color: $white;
+    text-align: center;
+    font-size: 16px;
+    background-color: $red;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+
   form {
     display: flex;
     flex-direction: column;
