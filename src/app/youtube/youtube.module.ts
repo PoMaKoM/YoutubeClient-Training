@@ -9,8 +9,12 @@ import { TitleShortPipe } from './pipes/title-short.pipe';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { SearchSortPipe } from './pipes/search-sort.pipe';
 import { CardColorsDirective } from './directives/card-colors.directive';
+import { VideoInfoComponent } from './pages/video-info/video-info.component';
 
-const routes: Routes = [{ path: '', component: SearchResultsComponent }];
+const routes: Routes = [
+  { path: '', component: SearchResultsComponent },
+  { path: ':id', component: VideoInfoComponent }
+];
 
 @NgModule({
   declarations: [
@@ -20,7 +24,8 @@ const routes: Routes = [{ path: '', component: SearchResultsComponent }];
     TitleShortPipe,
     SearchFilterPipe,
     SearchSortPipe,
-    CardColorsDirective
+    CardColorsDirective,
+    VideoInfoComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule]

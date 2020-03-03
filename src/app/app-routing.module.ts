@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './core/components/layout/layout.component';
 import { NotFoundComponent } from './core/pages/not-found/not-found.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,18 +11,19 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/auth/login',
+        redirectTo: '/client',
         pathMatch: 'full'
-      },
-      {
-        path: 'client',
-        loadChildren: () =>
-          import('./youtube/youtube.module').then(m => m.YoutubeModule)
       },
       {
         path: 'auth',
         loadChildren: () =>
           import('./auth/auth.module').then(m => m.YoutubeModule)
+      },
+      {
+        path: 'client',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./youtube/youtube.module').then(m => m.YoutubeModule)
       },
       {
         path: '**',

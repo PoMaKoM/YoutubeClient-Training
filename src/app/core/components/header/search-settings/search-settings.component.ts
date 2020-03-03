@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SearchService } from 'src/app/core/services/search.service';
 
 @Component({
@@ -6,8 +6,6 @@ import { SearchService } from 'src/app/core/services/search.service';
   templateUrl: './search-settings.component.html',
   styleUrls: ['./search-settings.component.scss']
 })
-export class SearchSettingsComponent implements OnInit {
+export class SearchSettingsComponent {
   constructor(public searchService: SearchService) {}
-
-  public ngOnInit(): void {}
 }

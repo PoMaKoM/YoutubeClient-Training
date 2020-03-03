@@ -22,6 +22,11 @@ body {
   font-size: 12px;
 }
 
+h1,
+h2 {
+  margin-top: 0;
+}
+
 .center {
   display: flex;
   align-items: center;
@@ -228,19 +233,13 @@ header {
       border-color: $main;
     }
 
+    .statistics {
+      margin: 0;
+    }
+
     .thumbnail > img {
       width: 100%;
       height: 120px;
-    }
-
-    .statistics {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      img {
-        margin-right: 5px;
-      }
     }
 
     .title {
@@ -249,5 +248,54 @@ header {
       line-height: 23px;
       color: $dark;
     }
+  }
+}
+
+.video-component {
+  display: flex;
+  background-color: $gray;
+  .thumbnail {
+    width: 70%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .info {
+    width: 30%;
+    padding: 35px;
+    position: relative;
+
+    .title {
+      font-size: 24px;
+    }
+
+    .date {
+      position: absolute;
+      right: 35px;
+      top: 20px;
+      color: $darken-gray;
+    }
+
+    .description {
+      span {
+        color: $black;
+      }
+
+      color: $darken-gray;
+    }
+  }
+}
+
+.statistics {
+  max-width: 220px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  img {
+    margin-right: 5px;
   }
 }

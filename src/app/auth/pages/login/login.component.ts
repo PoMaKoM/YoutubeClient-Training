@@ -40,10 +40,13 @@ export class LoginComponent implements OnInit {
 
     this.auth.login(user).subscribe(
       () => {
+        console.log('Работает...');
+
         this.router.navigate(['/client']);
         this.submitted = false;
       },
       () => {
+        console.log('Ошибка?');
         this.submitted = false;
       }
     );
