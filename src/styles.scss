@@ -9,7 +9,7 @@ $gray: #e5e5e5;
 $light-gray: #efefef;
 $darken-gray: #828282;
 $darken-white: #f2f2f2;
-$shadow: #00000075;
+$shadow: #33333340;
 $dark: #4f4f4f;
 $red: #eb5757;
 $orange: #f2c94c;
@@ -20,6 +20,7 @@ body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
+  min-width: 1000px;
 }
 
 h1,
@@ -254,21 +255,47 @@ header {
 .video-component {
   display: flex;
   background-color: $gray;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 5px 5px 20px $shadow;
+
+  .back {
+    position: absolute;
+    top: 0;
+    left: -32px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $main;
+    border-radius: 5px 0px 0px 5px;
+    cursor: pointer;
+  }
+
   .thumbnail {
     width: 70%;
     img {
       width: 100%;
       height: 100%;
+      border-radius: 0px 0px 0px 5px;
     }
   }
 
   .info {
     width: 30%;
     padding: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     position: relative;
+    border-bottom: 5px solid red;
+    border-radius: 5px 0px 5px 0px;
 
     .title {
       font-size: 24px;
+      line-height: 35px;
     }
 
     .date {
@@ -279,6 +306,8 @@ header {
     }
 
     .description {
+      max-height: 195px;
+      overflow-y: scroll;
       span {
         color: $black;
       }
@@ -289,6 +318,7 @@ header {
 }
 
 .statistics {
+  min-width: 200px;
   max-width: 220px;
   margin: 0 auto;
   display: flex;

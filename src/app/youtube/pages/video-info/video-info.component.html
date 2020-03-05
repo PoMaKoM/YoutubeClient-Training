@@ -1,4 +1,7 @@
 <div class="video-component" [appCardColors]="post.snippet.publishedAt">
+  <div class="back" (click)="back()">
+    <img src="../../../../assets/svg/back-arrow.svg" alt="" />
+  </div>
   <div class="thumbnail">
     <img src="{{ post.snippet.thumbnails.maxres.url }}" />
   </div>

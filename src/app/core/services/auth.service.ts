@@ -24,12 +24,11 @@ export class AuthService {
   }
 
   get token(): string {
-    const expDate: Date = new Date(localStorage.getItem('fb-token-exp'));
-    if (new Date() < expDate) {
+    const expDate: Date = new Date(localStorage.getItem('fb-token-expires'));
+    if (new Date() > expDate) {
       this.logout();
       return null;
     }
-
     return localStorage.getItem('fb-token');
   }
 

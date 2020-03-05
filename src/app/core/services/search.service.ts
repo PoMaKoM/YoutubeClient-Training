@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SearchResponse } from '../../shared/models/search-response.model';
 import { SearchItem } from 'src/app/shared/models/search-item.model';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
