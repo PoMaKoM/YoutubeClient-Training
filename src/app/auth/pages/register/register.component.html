@@ -1,0 +1,13 @@
+<form class="reg" [formGroup]="regForm" (ngSubmit)="register()">
+  <h2>Registration</h2>
+  <label for="email">Email</label>
+  <input formControlName="email" id="email" type="email" />
+  <label for="password">Password</label>
+  <input formControlName="password" id="password" type="password" />
+  <div class="buttons text-right">
+    <a [routerLink]="['/auth', 'login']">Login</a>
+    <button class="btn" type="submit" [disabled]="regForm.invalid || submitted">
+      Register
+    </button>
+  </div>
+</form>

@@ -2,38 +2,39 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
+// App
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { SearchResultsComponent } from './components/search-results/search-results.component';
-import { CardComponent } from './components/search-results/card/card.component';
-import { SearchComponent } from './components/header/search/search.component';
-import { AuthInfoComponent } from './components/header/auth-info/auth-info.component';
-import { SearchSettingsComponent } from './components/header/search-settings/search-settings.component';
-import { SearchService } from './services/search.service';
-import { NumberShortPipe } from './pipes/number-short.pipe';
-import { TitleShortPipe } from './pipes/title-short.pipe';
-import { SearchFilterPipe } from './pipes/search-filter.pipe';
-import { SearchSortPipe } from './pipes/search-sort.pipe';
-import { CardColorsDirective } from './directives/card-colors.directive';
+import { HttpClientModule } from '@angular/common/http';
+// Core
+import { HeaderComponent } from './core/components/header/header.component';
+import { SearchComponent } from './core/components/header/search/search.component';
+import { AuthInfoComponent } from './core/components/header/auth-info/auth-info.component';
+import { SearchSettingsComponent } from './core/components/header/search-settings/search-settings.component';
+import { LayoutComponent } from './core/components/layout/layout.component';
+import { NotFoundComponent } from './core/pages/not-found/not-found.component';
+// Service
+import { SearchService } from './core/services/search.service';
+import { AuthService } from './core/services/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SearchResultsComponent,
-    CardComponent,
+    LayoutComponent,
+    NotFoundComponent,
     SearchComponent,
     AuthInfoComponent,
-    SearchSettingsComponent,
-    NumberShortPipe,
-    TitleShortPipe,
-    SearchFilterPipe,
-    SearchSortPipe,
-    CardColorsDirective
+    SearchSettingsComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
-  providers: [SearchService],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  providers: [SearchService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
