@@ -20,7 +20,7 @@ export class VideoInfoComponent implements OnInit {
   public ngOnInit(): void {
     this.post = this.searchService.getById(
       this.activatedRoute.snapshot.params.id
-    );
+    ) ;
   }
 
   public back(): void {

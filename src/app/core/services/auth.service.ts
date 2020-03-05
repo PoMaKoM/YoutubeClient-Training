@@ -61,7 +61,7 @@ export class AuthService {
   public login(user: User): Observable<User> {
     return this.http
       .post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`,
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKeyFB}`,
         user
       )
       .pipe(tap(this.setToken), catchError(this.handleError.bind(this)));
@@ -70,7 +70,7 @@ export class AuthService {
   public register(user: User): Observable<User> {
     return this.http
       .post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`,
+        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKeyFB}`,
         user
       )
       .pipe(tap(this.setToken), catchError(this.handleError.bind(this)));

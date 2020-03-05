@@ -9,11 +9,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss']
 })
-
 export class SearchResultsComponent implements OnInit {
-  public posts: SearchResponse;
+  public posts$: SearchResponse;
   public querySubscription: Subscription;
-
+  public postSub: Subscription;
   constructor(
     public searchService: SearchService,
     private route: ActivatedRoute
@@ -23,9 +22,13 @@ export class SearchResultsComponent implements OnInit {
     this.querySubscription = this.route.queryParams.subscribe(
       (queryParams: Params) => {
         if (queryParams.search) {
-          this.posts = this.searchService.searchPosts();
+          this.postSub = this.searchService
+            .searchPosts(queryParams.search)
+            .subscribe(posts => {
+              this.posts$ = posts;
+            });
         } else {
-          this.posts = null;
+          this.posts$ = null;
         }
       }
     );
