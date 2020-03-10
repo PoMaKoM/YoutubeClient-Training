@@ -188,6 +188,7 @@ header {
       }
     }
   }
+
   .buttons {
     margin-top: 10px;
     a {
@@ -199,6 +200,31 @@ header {
     button {
       padding: 5px 30px;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
+
+      .progress {
+        position: absolute;
+        width: 33%;
+        height: 100%;
+        bottom: 0;
+        border-bottom: 3px solid $main;
+        animation-duration: 0.5s;
+        animation-name: slidein;
+        animation-iteration-count: infinite;
+        animation-direction: inherit;
+        animation-timing-function: linear;
+      }
+
+      @keyframes slidein {
+        from {
+          left: -33%;
+        }
+
+        to {
+          left: 100%;
+        }
+      }
     }
   }
 }

@@ -11,7 +11,8 @@
       type="submit"
       [disabled]="loginForm.invalid || submitted"
     >
-      Login
+      <span>Login</span>
+      <span class="progress" *ngIf="submitted"> </span>
     </button>
   </div>
 </form>
