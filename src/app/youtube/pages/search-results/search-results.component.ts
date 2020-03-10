@@ -10,27 +10,23 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./search-results.component.scss']
 })
 export class SearchResultsComponent implements OnInit {
-  public posts$: SearchResponse;
-  public querySubscription: Subscription;
-  public postSub: Subscription;
+  public videos: SearchResponse;
+
   constructor(
     public searchService: SearchService,
     private route: ActivatedRoute
   ) {}
 
   public ngOnInit(): void {
-    this.querySubscription = this.route.queryParams.subscribe(
-      (queryParams: Params) => {
-        if (queryParams.search) {
-          this.postSub = this.searchService
-            .searchPosts(queryParams.search)
-            .subscribe(post => {
-              this.posts$ = post;
-            });
-        } else {
-          this.posts$ = null;
-        }
+    this.route.queryParams.subscribe((queryParams: Params) => {
+      if (queryParams.search) {
+        this.searchService.searchVideos(queryParams.search).subscribe(resp => {
+          const ids: string[] = resp.items.map(item => item.id.videoId);
+          this.searchService.getViodeoList(ids).subscribe(videoList => {
+            this.videos = videoList;
+          });
+        });
       }
-    );
+    });
   }
 }

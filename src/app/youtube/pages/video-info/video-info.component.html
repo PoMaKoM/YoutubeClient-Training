@@ -1,40 +1,45 @@
-<div class="video-component">
+<div class="video-component" *ngIf="video; else loading">
   <div class="back" (click)="back()">
     <img src="../../../../assets/svg/back-arrow.svg" alt="" />
   </div>
   <div class="thumbnail">
-    <img src="{{ post.snippet.thumbnails.maxres.url | async }}" />
+    <img src="{{ video.snippet.thumbnails.high.url }}" />
   </div>
-  <div class="info">
-    <h2 class="title">{{ post.id | async }}</h2>
+  <div class="info" [appCardColors]="video.snippet.publishedAt">
+    <h2 class="title">{{ video.snippet.title }}</h2>
+
+    <span class="date">{{
+      video.snippet.publishedAt | date: 'EEEE, MMMM  d, y'
+    }}</span>
 
     <div class="description">
       <span>Description:</span>
-      <p class="text">{{ post.snippet.description }}</p>
+      <p class="text">{{ video.snippet.description }}</p>
     </div>
 
     <div class="statistics">
       <div class="views">
         <img src="../../../assets/svg/views.svg" />
-        <span>{{ post.statistics.viewCount | numberShort }}</span>
+        <span>{{ video.statistics.viewCount | numberShort }}</span>
       </div>
       <div class="likes">
         <img src="../../../assets/svg/likes.svg" />
-        <span>{{ post.statistics.likeCount | numberShort }}</span>
+        <span>{{ video.statistics.likeCount | numberShort }}</span>
       </div>
       <div class="dislikes">
         <img src="../../../assets/svg/dislikes.svg" />
-        <span>{{ post.statistics.dislikeCount | numberShort }}</span>
+        <span>{{ video.statistics.dislikeCount | numberShort }}</span>
       </div>
       <div class="comments">
         <img src="../../../assets/svg/comments.svg" />
-        <span>{{ post.statistics.commentCount | numberShort }}</span>
+        <span>{{ video.statistics.commentCount | numberShort }}</span>
       </div>
     </div>
   </div>
 </div>
 
-<!--
-<span class="date">{{
-      post.snippet.publishedAt | date: 'EEEE, MMMM  d, y'
-    }}</span> -->
+<ng-template #loading>
+  <div class="error-center">
+    <span>Load post</span>
+  </div>
+</ng-template>

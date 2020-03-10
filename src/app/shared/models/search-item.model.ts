@@ -1,17 +1,22 @@
 export interface SearchItem {
   etag: string;
-  id: string;
-  statistics: {
-    viewCount: string;
-    likeCount: string;
-    dislikeCount: string;
-    commentCount: string;
+  id: {
+    kind: string;
+    videoId: string;
   };
   snippet: {
     publishedAt: string;
+    channelId: string;
     title: string;
     description: string;
     thumbnails: Thumbnails;
+  };
+  statistics?: {
+    viewCount: string;
+    likeCount: string;
+    dislikeCount: string;
+    favoriteCount: string;
+    commentCount: string;
   };
 }
 
@@ -19,8 +24,6 @@ export interface Thumbnails {
   default: Thumbnail;
   medium: Thumbnail;
   high: Thumbnail;
-  standard: Thumbnail;
-  maxres: Thumbnail;
 }
 
 export interface Thumbnail {
@@ -28,4 +31,3 @@ export interface Thumbnail {
   width: number;
   height: number;
 }
-

@@ -1,8 +1,8 @@
-<div class="card-list" *ngIf="posts$; else wait">
+<div class="card-list" *ngIf="videos; else wait">
   <app-card
-    [post]="post"
+    [video]="video"
     *ngFor="
-      let post of posts$.items
+      let video of videos.items
         | searchFilter: searchService.filter
         | searchSort: searchService.sorting
     "
@@ -13,5 +13,10 @@
 <ng-template #wait>
   <div class="error-center">
     <span>Please enter your search query</span>
+
+    <span
+      >No Results Found <br />
+      Search for other keywords or remove applied filters.</span
+    >
   </div>
 </ng-template>

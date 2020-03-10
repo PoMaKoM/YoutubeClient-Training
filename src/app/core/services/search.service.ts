@@ -10,17 +10,12 @@ import { map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SearchService {
-  constructor(private http: HttpClient) {}
-
-  private _sorting: 'date' | 'views';
   get sorting(): 'date' | 'views' {
     return this._sorting;
   }
   set sorting(value: 'date' | 'views') {
     this._sorting = value;
   }
-
-  private _filter: string = '';
   get filter(): string {
     return this._filter;
   }
@@ -28,40 +23,27 @@ export class SearchService {
     this._filter = value;
   }
 
-  // tslint:disable: no-any
-  public searchPosts(search: string): Observable<any> {
-    return this.http
-      .get(
-        `${environment.apiURL}search?key=${environment.apiKeyYT}&type=video&part=snippet&maxResults=16&q=${search}`
-      )
-      .pipe(
-        tap(
-          event => {
-            console.log(event);
-            return event;
-          },
-          error => {
-            console.log(error);
-          }
-        )
-      );
+  private _sorting: 'date' | 'views';
+
+  private _filter: string = '';
+  constructor(private http: HttpClient) {}
+
+  // tslint:disable: max-line-length
+  public searchVideos(query: string): Observable<SearchResponse> {
+    // tslint:disable-next-line: no-inferrable-types
+    let url: string = `${environment.apiURL}search?part=snippet&maxResults=16&q=${query}&type=video&key=${environment.apiKeyYT}`;
+    return this.http.get<SearchResponse>(url);
   }
 
-  public getById(id: string): any {
-    return this.http
-      .get(
-        `${environment.apiURL}videos?key=${environment.apiKeyYT}&id=${id}&part=snippet,statistics`
-      )
-      .pipe(
-        tap(
-          event => {
-            console.log('event', event);
-            return event;
-          },
-          error => {
-            console.log(error);
-          }
-        )
-      );
+  public getViodeoList(ids: string[]): Observable<SearchResponse> {
+    // tslint:disable-next-line: no-inferrable-types
+    let url: string = `${environment.apiURL}videos?part=snippet%2Cstatistics&id=${ids}&key=${environment.apiKeyYT}`;
+    return this.http.get<SearchResponse>(url);
+  }
+
+  public getById(id: string): Observable<SearchResponse> {
+    // tslint:disable-next-line: no-inferrable-types
+    let url: string = `${environment.apiURL}videos?part=snippet%2Cstatistics&id=${id}&key=${environment.apiKeyYT}`;
+    return this.http.get<SearchResponse>(url);
   }
 }

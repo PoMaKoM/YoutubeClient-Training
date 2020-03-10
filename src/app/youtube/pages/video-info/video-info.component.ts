@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { SearchService } from 'src/app/core/services/search.service';
-import { SearchItem } from 'src/app/shared/models/';
-import { Observable } from 'rxjs';
+import { SearchItem } from 'src/app/shared/models/search-item.model';
+import { SearchResponse } from 'src/app/shared/models/search-response.model';
+import { CardColorsDirective } from 'src/app/youtube/directives/card-colors.directive';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-video-info',
@@ -10,8 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./video-info.component.scss']
 })
 export class VideoInfoComponent implements OnInit {
-  public post: [] = [];
-  public postSub: Subscription;
+  public video: SearchItem = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,24 +21,18 @@ export class VideoInfoComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.postSub = this.searchService
-      .getById(this.activatedRoute.snapshot.params.id)
-      .subscribe(posts => {
-        this.post = posts.items[0];
-        console.log(this.post);
+    this.activatedRoute.params
+      .pipe(
+        switchMap((params: Params) => {
+          return this.searchService.getById(params.id);
+        })
+      )
+      .subscribe((videoList: SearchResponse) => {
+        this.video = videoList.items[0];
       });
   }
 
   public back(): void {
     this.router.navigate(['client']);
   }
-
-  // ngOnDestroy() {
-  //   if (this.postSub) {
-  //     this.postSub.unsubscribe();
-  //   }
-  //   if (this.delSub) {
-  //     this.delSub.unsubscribe();
-  //   }
-  // }
 }

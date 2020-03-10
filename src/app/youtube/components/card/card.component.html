@@ -1,31 +1,28 @@
-<div class="card" [appCardColors]="post.snippet.publishedAt">
+<div class="card" [appCardColors]="video.snippet.publishedAt">
   <div class="thumbnail">
-    <img src="{{ post.snippet.thumbnails.medium.url }}" />
+    <img src="{{ video.snippet.thumbnails.medium.url }}" />
   </div>
-
-  <div class="title">{{ post.snippet.title | titleShort }}</div>
-  <button class="btn" [routerLink]="'/client/' + post.id.videoId">
-    More...
-  </button>
-</div>
-
-<!--
-<div class="statistics">
+  <div class="statistics">
     <div class="views">
       <img src="../../../assets/svg/views.svg" />
-      <span>{{ post.statistics.viewCount | numberShort }}</span>
+      <span>{{ video.statistics.viewCount | numberShort }}</span>
     </div>
     <div class="likes">
       <img src="../../../assets/svg/likes.svg" />
-      <span>{{ post.statistics.likeCount | numberShort }}</span>
+      <span>{{ video.statistics.likeCount | numberShort }}</span>
     </div>
     <div class="dislikes">
       <img src="../../../assets/svg/dislikes.svg" />
-      <span>{{ post.statistics.dislikeCount | numberShort }}</span>
+      <span>{{ video.statistics.dislikeCount | numberShort }}</span>
     </div>
     <div class="comments">
       <img src="../../../assets/svg/comments.svg" />
-      <span>{{ post.statistics.commentCount | numberShort }}</span>
+      <span>{{ video.statistics.commentCount | numberShort }}</span>
     </div>
   </div>
--->
+
+  <div class="title">{{ video.snippet.title | titleShort }}</div>
+  <button class="btn" [routerLink]="'/client/' + video.id">
+    More...
+  </button>
+</div>

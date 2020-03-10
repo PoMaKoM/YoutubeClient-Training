@@ -7,6 +7,6 @@ import { SearchItem } from 'src/app/shared/models/search-item.model';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
-  @Input() public post: SearchItem;
+  @Input() public video: SearchItem;
   constructor() {}
 }
