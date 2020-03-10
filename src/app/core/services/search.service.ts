@@ -32,7 +32,7 @@ export class SearchService {
   public searchPosts(search: string): Observable<any> {
     return this.http
       .get(
-        `${environment.apiURL}search?key=${environment.apiKeyYT}&type=video&part=snippet&maxResults=16&q=${search}&snippet.part=statistics`
+        `${environment.apiURL}search?key=${environment.apiKeyYT}&type=video&part=snippet&maxResults=16&q=${search}`
       )
       .pipe(
         tap(
@@ -50,12 +50,12 @@ export class SearchService {
   public getById(id: string): any {
     return this.http
       .get(
-        `${environment.apiURL}search?key=${environment.apiKeyYT}&type=video&part=snippet&maxResults=16&q=${search}&snippet.part=statistics`
+        `${environment.apiURL}videos?key=${environment.apiKeyYT}&id=${id}&part=snippet,statistics`
       )
       .pipe(
         tap(
           event => {
-            console.log(event);
+            console.log('event', event);
             return event;
           },
           error => {

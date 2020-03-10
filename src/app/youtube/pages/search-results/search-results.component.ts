@@ -24,8 +24,8 @@ export class SearchResultsComponent implements OnInit {
         if (queryParams.search) {
           this.postSub = this.searchService
             .searchPosts(queryParams.search)
-            .subscribe(posts => {
-              this.posts$ = posts;
+            .subscribe(post => {
+              this.posts$ = post;
             });
         } else {
           this.posts$ = null;
