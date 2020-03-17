@@ -17,7 +17,7 @@ const routes: Routes = [
       {
         path: 'auth',
         loadChildren: () =>
-          import('./auth/auth.module').then(m => m.YoutubeModule)
+          import('./auth/auth.module').then(m => m.AuthModule)
       },
       {
         path: 'client',

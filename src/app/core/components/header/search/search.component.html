@@ -1,18 +1,17 @@
 <div class="search">
   <div class="logo" routerLink="/">
-    <img src="../../../../assets/svg/logo.svg" alt="Logo" />
+    <img src="assets/svg/logo.svg" alt="Logo" />
   </div>
 
-  <form class="search" [formGroup]="searchForm" (ngSubmit)="search()">
+  <form class="search">
     <input
       type="text"
       placeholder="What are you want to find out?"
-      formControlName="request"
+      [formControl]="request"
     />
-    <button class="btn" type="submit">Search</button>
   </form>
   <div class="settings-btn center" (click)="settings = !settings">
-    <img src="../../../../assets/svg/settings.svg" alt="Settings" />
+    <img src="assets/svg/settings.svg" alt="Settings" />
   </div>
 </div>
 

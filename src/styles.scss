@@ -120,11 +120,8 @@ header {
       background: $light-gray;
       line-height: 14px;
       padding: 5px;
-      width: 400px;
-    }
-
-    button {
-      border-radius: 0px 4px 4px 0px;
+      width: 500px;
+      border-radius: 4px;
     }
   }
 }
@@ -320,8 +317,8 @@ header {
     }
 
     .description {
-      max-height: 195px;
-      overflow-y: scroll;
+      min-height: 304px;
+      overflow-y: auto;
       span {
         color: $black;
       }

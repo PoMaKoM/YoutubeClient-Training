@@ -3,8 +3,8 @@
     [video]="video"
     *ngFor="
       let video of videos.items
-        | searchFilter: searchService.filter
-        | searchSort: searchService.sorting
+        | searchFilter: settingsService.filter
+        | searchSort: settingsService.sorting
     "
   >
   </app-card>

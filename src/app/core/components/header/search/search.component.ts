@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { filter, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -9,28 +10,28 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SearchComponent {
   public settings: boolean = false;
-  public searchForm: FormGroup;
+  public request: FormControl;
 
   constructor(private router: Router, private activetedRoute: ActivatedRoute) {}
 
   public ngOnInit(): void {
     const qery: string | null =
       this.activetedRoute.snapshot.queryParams.search || null;
-    this.searchForm = new FormGroup({
-      request: new FormControl(qery, Validators.required)
+
+    this.request = new FormControl(qery, Validators.required);
+
+    this.request.valueChanges.pipe(debounceTime(750)).subscribe(val => {
+      this.search(val);
     });
   }
 
-  public search(): void {
-    if (this.searchForm.invalid) {
-      this.router.navigate(['/client'], {
-        queryParams: {}
-      });
-      return;
+  public search(val: string): void {
+    if (!val) {
+      console.log('CLEAR');
     }
 
     this.router.navigate(['/client'], {
-      queryParams: { search: this.searchForm.value.request }
+      queryParams: { search: val }
     });
   }
 }

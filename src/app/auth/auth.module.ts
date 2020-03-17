@@ -45,4 +45,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class YoutubeModule {}
+export class AuthModule {}

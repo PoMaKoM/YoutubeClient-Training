@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchService } from 'src/app/core/services/search.service';
+import { SettingsService } from 'src/app/core/services/settings.service';
 
 @Component({
   selector: 'app-search-settings',
@@ -7,5 +7,9 @@ import { SearchService } from 'src/app/core/services/search.service';
   styleUrls: ['./search-settings.component.scss']
 })
 export class SearchSettingsComponent {
-  constructor(public searchService: SearchService) {}
+  constructor(public settingsService: SettingsService) {}
+
+  public sorting(value: 'date' | 'views'): void {
+    this.settingsService.sorting = value;
+  }
 }

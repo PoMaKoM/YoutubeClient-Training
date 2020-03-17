@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from 'src/app/core/services/search.service';
 import { SearchResponse } from 'src/app/shared/models/search-response.model';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { SettingsService } from 'src/app/core/services/settings.service';
+import { SearchService } from 'src/app/core/services/search.service';
 
 @Component({
   selector: 'app-search-results',
@@ -13,7 +13,8 @@ export class SearchResultsComponent implements OnInit {
   public videos: SearchResponse;
 
   constructor(
-    public searchService: SearchService,
+    public settingsService: SettingsService,
+    private searchService: SearchService,
     private route: ActivatedRoute
   ) {}
 
