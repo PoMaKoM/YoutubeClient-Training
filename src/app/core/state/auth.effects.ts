@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AuthService } from '../services/auth.service';
 import { AuthActionTypes, LogInSuccess, LogInFailure } from './auth.actions';
-import { Observable } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { map, switchMap, catchError, tap } from 'rxjs/operators';
 import { User, AuthState } from 'src/app/shared/models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -14,15 +14,17 @@ export class AuthEffects {
   public logIn: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN),
     switchMap((payload: AuthState) => {
-      return this.authService.logIn(payload.user);
-    }),
-    switchMap((user: User) => {
-      this.router.navigate(['/client']);
-      return [new LogInSuccess(user)];
-    }),
-    catchError((error: HttpErrorResponse) => {
-      return [new LogInFailure(this.handleError(error))];
+      return this.authService.logIn(payload.user).pipe(
+        map((user: User) => {
+          this.router.navigate(['client']);
+          return [new LogInSuccess(user)];
+        }),
+        catchError((error: HttpErrorResponse) => [
+          new LogInFailure(this.handleError(error)),
+        ])
+      );
     })
+    // catchError(() => [])
   );
 
   constructor(

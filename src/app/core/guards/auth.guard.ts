@@ -8,8 +8,9 @@ import {
 import { Observable } from 'rxjs';
 
 import { AppState } from '../state/app.state';
-import { Store } from '@ngrx/store';
-import { map, tap } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
+import { map, tap, retry } from 'rxjs/operators';
+import { LogOut } from '../state/auth.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -17,19 +18,26 @@ import { map, tap } from 'rxjs/operators';
 export class AuthGuard implements CanActivate {
   constructor(private store: Store<AppState>, private router: Router) {}
 
-  public canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
+  public canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    return true;
     return this.store
-      .select((appState: AppState) => {
-        return !!appState.authState.token;
+      .select((state: AppState) => {
+        return state.authState;
       })
       .pipe(
-        tap((bool) => {
-          if (!bool) {
+        map((authState) => {
+          if (authState.expDate) {
+            if (new Date(authState.expDate) > new Date()) {
+              return true;
+            } else {
+              this.router.navigate(['/auth', 'login']);
+              this.store.dispatch(new LogOut());
+              return false;
+            }
+          } else {
             this.router.navigate(['/auth', 'login']);
-            // this.store.dispatch()
+            this.store.dispatch(new LogOut());
+            return false;
           }
         })
       );

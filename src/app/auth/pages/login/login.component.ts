@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -32,8 +32,6 @@ export class LoginComponent implements OnInit {
         Validators.minLength(6),
       ]),
     });
-
-    this.store.dispatch(new Inint());
   }
 
   public login(): void {
