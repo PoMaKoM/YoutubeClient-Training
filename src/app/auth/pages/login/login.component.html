@@ -9,10 +9,10 @@
     <button
       class="btn"
       type="submit"
-      [disabled]="loginForm.invalid || submitted"
+      [disabled]="loginForm.invalid || (loading$ | async)"
     >
       <span>Login</span>
-      <span class="progress" *ngIf="submitted"> </span>
+      <span class="progress" *ngIf="loading$ | async"> </span>
     </button>
   </div>
 </form>

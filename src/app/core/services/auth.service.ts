@@ -1,86 +1,63 @@
 import { Injectable } from '@angular/core';
+
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User, FbAuthResponse } from 'src/app/shared/models/user.model';
 
+import { Store } from '@ngrx/store';
+import { AppState } from '../state/app.state';
+import {
+  AuthActionTypes,
+  LogIn,
+  LogOut,
+  LogInSuccess,
+  LogInFailure,
+} from 'src/app/core/state/auth.actions';
+
 @Injectable()
 export class AuthService {
-  public error$: Subject<string> = new Subject<string>();
+  public user: User = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store<AppState>) {}
 
-  private setToken(response: FbAuthResponse | null): void {
-    if (response) {
-      const expDate: Date = new Date(
-        new Date().getTime() + +response.expiresIn * 1000
-      );
-      localStorage.setItem('fb-token', response.idToken);
-      localStorage.setItem('fb-token-expires', expDate.toString());
-    } else {
-      localStorage.clear();
-    }
+  // private setToken(response: FbAuthResponse | null): void {
+  //   if (response) {
+  //     const expDate: Date = new Date(
+  //       new Date().getTime() + +response.expiresIn * 1000
+  //     );
+  //     localStorage.setItem('fb-token', response.idToken);
+  //     localStorage.setItem('fb-token-expires', expDate.toString());
+  //   } else {
+  //     localStorage.clear();
+  //   }
+  // }
+
+  // get token(): string {
+  //   const expDate: Date = new Date(localStorage.getItem('fb-token-expires'));
+  //   if (new Date() > expDate) {
+  //     this.logout();
+  //     return null;
+  //   }
+  //   return localStorage.getItem('fb-token');
+  // }
+
+  public logIn(user: User): Observable<User> {
+    const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKeyFB}`;
+    return this.http.post<User>(url, user);
   }
 
-  get token(): string {
-    const expDate: Date = new Date(localStorage.getItem('fb-token-expires'));
-    if (new Date() > expDate) {
-      this.logout();
-      return null;
-    }
-    return localStorage.getItem('fb-token');
-  }
-
-  private handleError(
-    error: HttpErrorResponse
-  ): Subject<string> | Observable<Error> {
-    const { message } = error.error.error;
-    switch (message) {
-      case 'INVALID_EMAIL':
-        this.error$.next('Incorrect Email');
-        break;
-      case 'INVALID_PASSWORD':
-        this.error$.next('Incorrect password');
-        break;
-      case 'EMAIL_NOT_FOUND':
-        this.error$.next('Email not found');
-        break;
-      case 'EMAIL_EXISTS':
-        this.error$.next('Email already registered');
-        break;
-      case 'USER_DISABLED':
-        this.error$.next('You have been blocked by the administrator');
-        break;
-      default:
-        break;
-    }
-    return throwError(error);
-  }
-
-  public login(user: User): Observable<User> {
-    return this.http
-      .post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKeyFB}`,
-        user
-      )
-      .pipe(tap(this.setToken), catchError(this.handleError.bind(this)));
-  }
-
-  public register(user: User): Observable<User> {
-    return this.http
-      .post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKeyFB}`,
-        user
-      )
-      .pipe(tap(this.setToken), catchError(this.handleError.bind(this)));
-  }
+  // public register(user: User): Observable<User> {
+  //   return this.http
+  //     .post(
+  //       `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKeyFB}`,
+  //       user
+  //     )
+  //     .pipe(tap(), catchError(this.handleError.bind(this)));
+  // }
 
   public logout(): void {
-    this.setToken(null);
-  }
-
-  public isAuthenticated(): boolean {
-    return !!this.token;
+    this.store.dispatch(new LogOut());
   }
 }

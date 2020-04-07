@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
   public submitted: boolean = false;
@@ -19,8 +19,8 @@ export class RegisterComponent implements OnInit {
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [
         Validators.required,
-        Validators.minLength(6)
-      ])
+        Validators.minLength(6),
+      ]),
     });
   }
 
@@ -34,17 +34,17 @@ export class RegisterComponent implements OnInit {
     const user: User = {
       email: this.regForm.value.email,
       password: this.regForm.value.password,
-      returnSecureToken: true
+      returnSecureToken: true,
     };
 
-    this.auth.register(user).subscribe(
-      () => {
-        this.router.navigate(['/client']);
-        this.submitted = false;
-      },
-      () => {
-        this.submitted = false;
-      }
-    );
+    // this.auth.register(user).subscribe(
+    //   () => {
+    //     this.router.navigate(['/client']);
+    //     this.submitted = false;
+    //   },
+    //   () => {
+    //     this.submitted = false;
+    //   }
+    // );
   }
 }

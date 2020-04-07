@@ -1,6 +1,6 @@
 <div class="auth">
-  <div class="alert" *ngIf="auth.error$ | async as error">
-    {{ error }}
+  <div class="alert" *ngIf="message">
+    {{ message }}
   </div>
   <router-outlet></router-outlet>
 </div>
