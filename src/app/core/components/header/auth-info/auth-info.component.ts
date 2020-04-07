@@ -3,7 +3,9 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { AppState } from 'src/app/core/state/app.state';
 import { Store } from '@ngrx/store';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, Subject } from 'rxjs';
+import { takeUntil, map, catchError } from 'rxjs/operators';
+import { AuthState } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-auth-info',
@@ -11,7 +13,8 @@ import { Subscription, Observable } from 'rxjs';
   styleUrls: ['./auth-info.component.scss'],
 })
 export class AuthInfoComponent implements OnInit, OnDestroy {
-  public nameSub: Subscription;
+  public nameSub: Subject<void> = new Subject();
+  public userName$: Observable<string>;
   public name: string;
 
   constructor(
@@ -26,10 +29,11 @@ export class AuthInfoComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.nameSub = this.store
+    this.store
       .select((state: AppState) => {
         return state.authState.user.name;
       })
+      .pipe(takeUntil(this.nameSub))
       .subscribe(
         (name: string) => {
           this.name = name;
@@ -38,9 +42,29 @@ export class AuthInfoComponent implements OnInit, OnDestroy {
           this.name = 'LogIn';
         }
       );
+
+    this.userName$ = this.store.select('authState').pipe(
+      map((state: AuthState) => state.user.name),
+      catchError(() => {
+        return 'Login';
+      })
+    );
   }
 
   public ngOnDestroy(): void {
-    this.nameSub.unsubscribe();
+    // this.nameSub.next();
+    // this.nameSub.complete();
   }
 }
+
+//  this.nameSub = this.store.select('authState').subscribe(
+//       map((state: AuthState) => state.user.name),
+//       tap(
+//         (name: string) => {
+//           this.name = name;
+//         },
+//         () => {
+//           this.name = 'LogIn';
+//         }
+//       )
+//     );

@@ -14,17 +14,19 @@ export class AuthEffects {
   public logIn: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN),
     switchMap((payload: AuthState) => {
-      return this.authService.logIn(payload.user).pipe(
-        map((user: User) => {
-          this.router.navigate(['client']);
-          return [new LogInSuccess(user)];
-        }),
-        catchError((error: HttpErrorResponse) => [
-          new LogInFailure(this.handleError(error)),
-        ])
-      );
-    })
-    // catchError(() => [])
+      return this.authService
+        .logIn(payload.user)
+        .pipe(
+          catchError((error: HttpErrorResponse) => [
+            new LogInFailure(this.handleError(error)),
+          ])
+        );
+    }),
+    switchMap((user: User) => {
+      this.router.navigate(['client']);
+      return [new LogInSuccess(user)];
+    }),
+    catchError(() => [])
   );
 
   constructor(

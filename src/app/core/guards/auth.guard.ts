@@ -20,26 +20,26 @@ export class AuthGuard implements CanActivate {
 
   public canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     return true;
-    return this.store
-      .select((state: AppState) => {
-        return state.authState;
-      })
-      .pipe(
-        map((authState) => {
-          if (authState.expDate) {
-            if (new Date(authState.expDate) > new Date()) {
-              return true;
-            } else {
-              this.router.navigate(['/auth', 'login']);
-              this.store.dispatch(new LogOut());
-              return false;
-            }
-          } else {
-            this.router.navigate(['/auth', 'login']);
-            this.store.dispatch(new LogOut());
-            return false;
-          }
-        })
-      );
+    // return this.store
+    //   .select((state: AppState) => {
+    //     return state.authState;
+    //   })
+    //   .pipe(
+    //     map((authState) => {
+    //       if (authState.expDate) {
+    //         if (new Date(authState.expDate) > new Date()) {
+    //           return true;
+    //         } else {
+    //           this.router.navigate(['/auth', 'login']);
+    //           this.store.dispatch(new LogOut());
+    //           return false;
+    //         }
+    //       } else {
+    //         this.router.navigate(['/auth', 'login']);
+    //         this.store.dispatch(new LogOut());
+    //         return false;
+    //       }
+    //     })
+    //   );
   }
 }

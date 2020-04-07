@@ -1,4 +1,4 @@
 <div class="auth-info" (click)="logout()">
-  <span> {{ name }} </span>
+  <span> {{ userName$ | async }} </span>
   <img src="assets/svg/auth.svg" alt="Auth" />
 </div>
