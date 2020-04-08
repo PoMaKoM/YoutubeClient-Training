@@ -5,7 +5,7 @@ import { AppState } from 'src/app/core/state/app.state';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { takeUntil, map, catchError } from 'rxjs/operators';
-import { AuthState } from 'src/app/shared/models/user.model';
+import { AuthState, User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-auth-info',
@@ -14,7 +14,6 @@ import { AuthState } from 'src/app/shared/models/user.model';
 })
 export class AuthInfoComponent implements OnInit, OnDestroy {
   public nameSub: Subject<void> = new Subject();
-  public userName$: Observable<string>;
   public name: string;
 
   constructor(
@@ -31,24 +30,21 @@ export class AuthInfoComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.store
       .select((state: AppState) => {
-        return state.authState.user.name;
+        return state.authState.user;
       })
       .pipe(takeUntil(this.nameSub))
       .subscribe(
-        (name: string) => {
-          this.name = name;
+        (user: User) => {
+          if (user) {
+            this.name = user.name;
+          } else {
+            this.name = 'Login';
+          }
         },
         () => {
-          this.name = 'LogIn';
+          this.name = 'Login';
         }
       );
-
-    this.userName$ = this.store.select('authState').pipe(
-      map((state: AuthState) => state.user.name),
-      catchError(() => {
-        return 'Login';
-      })
-    );
   }
 
   public ngOnDestroy(): void {
