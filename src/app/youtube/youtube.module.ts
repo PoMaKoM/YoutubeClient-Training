@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { SafePipeModule } from 'safe-pipe';
 
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
 import { CardComponent } from './components/card/card.component';
@@ -25,9 +26,9 @@ const routes: Routes = [
     SearchFilterPipe,
     SearchSortPipe,
     CardColorsDirective,
-    VideoInfoComponent
+    VideoInfoComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [CommonModule, RouterModule.forChild(routes), SafePipeModule],
+  exports: [RouterModule],
 })
 export class YoutubeModule {}

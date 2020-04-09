@@ -3,25 +3,35 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AuthService } from '../services/auth.service';
 import { AuthActionTypes, LogInSuccess, LogInFailure } from './auth.actions';
-import { Observable } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { map, switchMap, catchError, tap } from 'rxjs/operators';
 import { User, AuthState } from 'src/app/shared/models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AuthEffects {
   @Effect()
-  public logIn: Observable<any> = this.actions.pipe(
+  public logIn: Observable<User> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN),
     switchMap((payload: AuthState) => {
-      return this.authService.logIn(payload.user);
+      return this.authService.logIn(payload.user).pipe(
+        catchError((error: HttpErrorResponse) => {
+          return [new LogInFailure(this.handleError(error))];
+        })
+      );
     }),
     switchMap((user: User) => {
-      this.router.navigate(['/client']);
+      this.router.navigate(['client']);
       return [new LogInSuccess(user)];
     }),
-    catchError((error: HttpErrorResponse) => {
-      return [new LogInFailure(this.handleError(error))];
+    catchError(() => [])
+  );
+
+  @Effect({ dispatch: false })
+  public getStatus: Observable<User> = this.actions.pipe(
+    ofType(AuthActionTypes.GET_STATUS),
+    tap((action: User) => {
+      console.log('getStatus EFFECT', action);
     })
   );
 

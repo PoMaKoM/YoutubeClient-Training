@@ -1,4 +1,4 @@
-<div class="card-list" *ngIf="videos; else wait">
+<div class="card-list" *ngIf="videos && videos.items.length; else wait">
   <app-card
     [video]="video"
     *ngFor="
@@ -12,11 +12,11 @@
 
 <ng-template #wait>
   <div class="error-center">
-    <span>Please enter your search query</span>
+    <span *ngIf="!videos">Please enter your search query</span>
 
-    <span
-      >No Results Found <br />
-      Search for other keywords or remove applied filters.</span
+    <span *ngIf="videos && !videos.items.length">
+      No Results Found <br />
+      Search for other keywords.</span
     >
   </div>
 </ng-template>

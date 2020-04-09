@@ -7,10 +7,10 @@ import { SearchService } from 'src/app/core/services/search.service';
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
-  styleUrls: ['./search-results.component.scss']
+  styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent implements OnInit {
-  public videos: SearchResponse;
+  public videos: SearchResponse | null;
 
   constructor(
     public settingsService: SettingsService,
@@ -21,12 +21,13 @@ export class SearchResultsComponent implements OnInit {
   public ngOnInit(): void {
     this.route.queryParams.subscribe((queryParams: Params) => {
       if (queryParams.search) {
-        this.searchService.searchVideos(queryParams.search).subscribe(resp => {
-          const ids: string[] = resp.items.map(item => item.id.videoId);
-          this.searchService.getViodeoList(ids).subscribe(videoList => {
-            this.videos = videoList;
+        this.searchService
+          .searchVideos(queryParams.search)
+          .subscribe((videos: SearchResponse) => {
+            this.videos = videos;
           });
-        });
+      } else {
+        this.videos = null;
       }
     });
   }

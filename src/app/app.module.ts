@@ -17,28 +17,12 @@ import { NotFoundComponent } from './core/pages/not-found/not-found.component';
 import { SearchService } from './core/services/search.service';
 import { AuthService } from './core/services/auth.service';
 // Store
-import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { storageSync } from '@larscom/ngrx-store-storagesync';
-import { reducerMap } from 'src/app/core/state/app.state';
+import { reducerMap, storageSyncReducer } from 'src/app/core/state/app.state';
 import { environment } from 'src/environments/environment';
-import { AuthState } from './shared/models/user.model';
 import { AuthEffects } from 'src/app/core/state/auth.effects';
 import { EffectsModule } from '@ngrx/effects';
-
-export function storageSyncReducer(
-  reducer: ActionReducer<AuthState>
-): ActionReducer<AuthState> {
-  return storageSync<AuthState>({
-    features: [
-      // saves the auth state to sessionStorage
-      { stateKey: 'authState' },
-    ],
-    storage: window.localStorage,
-  })(reducer);
-}
-
-const metaReducers: Array<MetaReducer<any, any>> = [storageSyncReducer];
 
 @NgModule({
   declarations: [
@@ -57,7 +41,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [storageSyncReducer];
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot(reducerMap, {
-      metaReducers,
+      metaReducers: [storageSyncReducer],
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

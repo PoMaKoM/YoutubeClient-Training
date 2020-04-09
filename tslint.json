@@ -39,7 +39,7 @@
     "no-conditional-assignment": true,
     "no-consecutive-blank-lines": [true, 1],
     "no-console": [true, "debug", "info", "time", "timeEnd", "trace"],
-    "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
+    "no-inferrable-types": false,
     "no-construct": true,
     "no-parameter-properties": false,
     "no-debugger": true,

@@ -9,7 +9,6 @@ export class NumberShortPipe implements PipeTransform {
 
     const NUMBER_COUNT_SOMETHING: Array<string> = ['', 'K', 'M', 'B', 'T', 'Q'];
 
-    // tslint:disable-next-line: no-inferrable-types
     let count: number = 0;
     while (numberVal > 1000) {
       count++;

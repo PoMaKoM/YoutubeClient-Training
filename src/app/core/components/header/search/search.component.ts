@@ -6,7 +6,7 @@ import { filter, debounceTime } from 'rxjs/operators';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
   public settings: boolean = false;
@@ -20,18 +20,18 @@ export class SearchComponent {
 
     this.request = new FormControl(qery, Validators.required);
 
-    this.request.valueChanges.pipe(debounceTime(750)).subscribe(val => {
+    this.request.valueChanges.pipe(debounceTime(1000)).subscribe((val) => {
       this.search(val);
     });
   }
 
   public search(val: string): void {
     if (!val) {
-      console.log('CLEAR');
+      this.router.navigate(['/client']);
     }
 
     this.router.navigate(['/client'], {
-      queryParams: { search: val }
+      queryParams: { search: val },
     });
   }
 }
