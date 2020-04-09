@@ -3,9 +3,10 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { AppState } from 'src/app/core/state/app.state';
 import { Store } from '@ngrx/store';
-import { Subscription, Observable, Subject } from 'rxjs';
-import { takeUntil, map, catchError } from 'rxjs/operators';
-import { AuthState, User } from 'src/app/shared/models/user.model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { User } from 'src/app/shared/models/user.model';
+import { LogOut } from 'src/app/core/state/auth.actions';
 
 @Component({
   selector: 'app-auth-info',
@@ -24,7 +25,7 @@ export class AuthInfoComponent implements OnInit, OnDestroy {
 
   public logout(): void {
     this.router.navigate(['/auth', 'login']);
-    this.auth.logout();
+    this.store.dispatch(new LogOut());
   }
 
   public ngOnInit(): void {
@@ -35,7 +36,7 @@ export class AuthInfoComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.nameSub))
       .subscribe(
         (user: User) => {
-          if (user) {
+          if (user && user.name) {
             this.name = user.name;
           } else {
             this.name = 'Login';
@@ -48,19 +49,7 @@ export class AuthInfoComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    // this.nameSub.next();
-    // this.nameSub.complete();
+    this.nameSub.next();
+    this.nameSub.complete();
   }
 }
-
-//  this.nameSub = this.store.select('authState').subscribe(
-//       map((state: AuthState) => state.user.name),
-//       tap(
-//         (name: string) => {
-//           this.name = name;
-//         },
-//         () => {
-//           this.name = 'LogIn';
-//         }
-//       )
-//     );

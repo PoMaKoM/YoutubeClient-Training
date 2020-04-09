@@ -11,22 +11,28 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class AuthEffects {
   @Effect()
-  public logIn: Observable<any> = this.actions.pipe(
+  public logIn: Observable<User> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN),
     switchMap((payload: AuthState) => {
-      return this.authService
-        .logIn(payload.user)
-        .pipe(
-          catchError((error: HttpErrorResponse) => [
-            new LogInFailure(this.handleError(error)),
-          ])
-        );
+      return this.authService.logIn(payload.user).pipe(
+        catchError((error: HttpErrorResponse) => {
+          return [new LogInFailure(this.handleError(error))];
+        })
+      );
     }),
     switchMap((user: User) => {
       this.router.navigate(['client']);
       return [new LogInSuccess(user)];
     }),
     catchError(() => [])
+  );
+
+  @Effect({ dispatch: false })
+  public getStatus: Observable<User> = this.actions.pipe(
+    ofType(AuthActionTypes.GET_STATUS),
+    tap((action: User) => {
+      console.log('getStatus EFFECT', action);
+    })
   );
 
   constructor(
